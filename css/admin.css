@@ -26,7 +26,13 @@
 .tbl-30{
     width: 30% !important;
 } 
+.success{ 
+    color: #2ed573;
+}
 
+.error{
+    color: #ff4757;
+} 
 
 
 .btn-primary{
