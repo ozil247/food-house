@@ -33,7 +33,7 @@
 .error{
     color: #ff4757;
 } 
-
+ 
 
 .btn-primary{
     background-color: #3742fa  ;
@@ -119,6 +119,13 @@ table tr td{
     margin: 1%;
     padding: 2%;
     float: left;
+}
+
+.login{
+    border: 1px solid grey;
+    width: 30%;
+    margin: 5% auto;
+    padding: 2%;
 }
 
 
