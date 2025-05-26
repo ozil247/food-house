@@ -1,53 +1,51 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+session_start(); // Start session to use $_SESSION
 
-include('../config/constants.php'); // Make sure this defines $conn properly
+include('../config/constants.php'); // Ensure this file defines $conn and SITEURL
 
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get and sanitize user input
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
+    // Validate inputs
     if (empty($username) || empty($password)) {
         $_SESSION['message'] = "<div class='error'>Please fill in all fields.</div>";
-        header("Location:" . SITEURL . "admin/login.php");
+        header("Location: " . SITEURL . "admin/login.php");
         exit;
     }
 
-    // Check database connection
-    if (!$conn) {
-        die("Database connection failed: " . mysqli_connect_error());
-    }
-
+    // Prepare SQL statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM tbl_admin WHERE username = ?");
     if (!$stmt) {
-        die("Prepare failed: " . $conn->error); // Show actual SQL error
+        $_SESSION['message'] = "<div class='error'>Login error. Try again later.</div>";
+        header("Location: " . SITEURL . "admin/login.php");
+        exit;
     }
 
     $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
+    // Check if user exists
     if ($result && $result->num_rows === 1) {
-        $row = $result->fetch_assoc();
+        $user = $result->fetch_assoc();
 
-        // If passwords in DB are hashed:
-        if (password_verify($password, $row['password'])) {
-            $_SESSION['message'] = "<div class='success'>Login Successful</div>";
+        // Verify hashed password
+        if (password_verify($password, $user['password'])) {
             $_SESSION['user'] = $username;
+            $_SESSION['message'] = "<div class='success'>Login Successful</div>";
             header("Location: " . SITEURL . "admin/");
             exit;
         } else {
             $_SESSION['message'] = "<div class='error'>Invalid password.</div>";
-            header("Location:" . SITEURL . "admin/login.php");
         }
     } else {
         $_SESSION['message'] = "<div class='error'>User not found.</div>";
-        header("Location:" . SITEURL . "admin/login.php");
     }
 
-    header("Location:" . SITEURL . "admin/login.php");
+    // Redirect back to login with error
+    header("Location: " . SITEURL . "admin/login.php");
     exit;
 }
 ?>

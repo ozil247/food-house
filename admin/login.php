@@ -1,4 +1,7 @@
+ <?php session_start(); ?>
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -98,12 +101,17 @@
 
         <?php
             if (isset($_SESSION['message'])) {
-                echo "<div style='margin-bottom: 1rem; padding: 0.8rem; background: #ffe0e0; color: #b30000; border: 1px solid #ffcccc; border-radius: 0.5rem; text-align: center;'>";
                 echo $_SESSION['message'];
-                echo "</div>";
                 unset($_SESSION['message']);
             }
+
+            if (isset($_SESSION['no-login-message'])) {
+                echo $_SESSION['no-login-message'];
+                unset($_SESSION['no-login-message']);
+            }
         ?>
+
+
 
         <?php
             if (isset($_GET['error'])) {
