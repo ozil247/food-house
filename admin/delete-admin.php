@@ -38,3 +38,4 @@ if (isset($_GET['id']) && is_numeric($_GET['id']) && (int)$_GET['id'] > 0) {
     header("Location: " . SITEURL . "admin/manage-admin.php");
     exit(); // Stop further script execution
 }
+?>

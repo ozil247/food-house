@@ -1,7 +1,7 @@
 <?php
 session_start(); // Start session to use $_SESSION
 
-include('../config/constants.php'); // Ensure this file defines $conn and SITEURL
+include '../config/constants.php'; // Ensure this file defines $conn and SITEURL
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Get and sanitize user input
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Prepare SQL statement to prevent SQL injection
     $stmt = $conn->prepare("SELECT * FROM tbl_admin WHERE username = ?");
-    if (!$stmt) {
+    if (! $stmt) {
         $_SESSION['message'] = "<div class='error'>Login error. Try again later.</div>";
         header("Location: " . SITEURL . "admin/login.php");
         exit;
@@ -33,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // Verify hashed password
         if (password_verify($password, $user['password'])) {
-            $_SESSION['user'] = $username;
+            $_SESSION['user']    = $username;
             $_SESSION['message'] = "<div class='success'>Login Successful</div>";
             header("Location: " . SITEURL . "admin/");
             exit;

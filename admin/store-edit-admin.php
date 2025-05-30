@@ -32,7 +32,7 @@ if(isset($_POST['submit']))
     }
     else
     {
-        $_SESSION['message'] = "<div class='error'>Failed to update admin</div>";
+        $_SESSION['message'] = "<div class='error'>Failed to update admin</div>"; 
         // redirect to manage admin page
         header('location:'.SITEURL.'admin/manage-admin.php');
     }
