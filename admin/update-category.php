@@ -19,7 +19,6 @@
         if($res == true){
             $count = mysqli_num_rows($res);
             if($count == 1){
-                echo "<div class='success'>Category found</div>";
                 $row = mysqli_fetch_assoc($res);
                 $title = $row['title'];
                 $image_name = $row['image_name'];
@@ -37,7 +36,7 @@
         
         ?>
 
-        <form action="process-category.php" method="POST" enctype="multipart/form-data">
+        <form action="store-edit-category.php" method="POST" enctype="multipart/form-data">
             <table class="tb1-full">
                 <tr>
                     <td>Title:</td>

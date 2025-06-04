@@ -7,9 +7,9 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 if (isset($_POST['submit'])) {
-    $title = mysqli_real_escape_string($conn, $_POST['title']);
+    $title    = mysqli_real_escape_string($conn, $_POST['title']);
     $featured = isset($_POST['featured']) ? mysqli_real_escape_string($conn, $_POST['featured']) : 'No';
-    $active = isset($_POST['active']) ? mysqli_real_escape_string($conn, $_POST['active']) : 'No';
+    $active   = isset($_POST['active']) ? mysqli_real_escape_string($conn, $_POST['active']) : 'No';
 
     // Handle image upload
     $image_name = "";
@@ -23,11 +23,11 @@ if (isset($_POST['submit'])) {
         // Rename the image to avoid name conflict
         $image_name = "Category_" . uniqid() . "." . $ext;
 
-        $source_path = $_FILES['image']['tmp_name'];
+        $source_path      = $_FILES['image']['tmp_name'];
         $destination_path = "../images/category/" . $image_name;
 
         // Create folder if it doesn't exist
-        if (!is_dir("../images/category")) {
+        if (! is_dir("../images/category")) {
             mkdir("../images/category", 0777, true);
         }
 
@@ -35,7 +35,7 @@ if (isset($_POST['submit'])) {
         $upload = move_uploaded_file($source_path, $destination_path);
 
         // Check if the upload was successful
-        if (!$upload) {
+        if (! $upload) {
             $_SESSION['message'] = "<div class='error'>Failed to upload image.</div>";
             header('Location: ' . SITEURL . 'admin/add-category.php');
             exit();
