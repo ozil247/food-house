@@ -152,6 +152,16 @@ fieldset{
     border-radius: 15px;
 }
 
+.error{
+    color: red;
+    padding: 2%;
+}
+
+.success{
+    color: green;
+    padding: 2%;
+}
+
 .food-menu-img{
     width: 20%;
     float: left;

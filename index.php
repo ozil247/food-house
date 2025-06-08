@@ -6,7 +6,7 @@
 <section class="food-search text-center">
     <div class="container">
 
-        <form action="<?php echo SITEURL; ?>food-search.php" method="POST">
+        <form action="food-search.html" method="POST">
             <input type="search" name="search" placeholder="Search for Food.." required>
             <input type="submit" name="submit" value="Search" class="btn btn-primary">
         </form>
@@ -14,6 +14,13 @@
     </div>
 </section>
 <!-- fOOD sEARCH Section Ends Here -->
+
+<?php
+    if (isset($_SESSION['message'])) {
+        echo $_SESSION['message'];
+        unset($_SESSION['message']);
+    }
+?>
 
 <!-- CAtegories Section Starts Here -->
 <section class="categories">
@@ -25,17 +32,16 @@
             $res   = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($res);
 
-            if($count > 0) {
-                while($row = mysqli_fetch_assoc($res ))
-                {
-                    $id    = $row['id'];
-                    $title = $row['title'];
+            if ($count > 0) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $id         = $row['id'];
+                    $title      = $row['title'];
                     $image_name = $row['image_name'];
 
                     // Check if image is available
-                    if($image_name != "") {
+                    if ($image_name != "") {
                         // Display the image
-                        ?>
+                    ?>
         <a href="category-foods.php?category_id=<?php echo $id; ?>">
             <div class="box-3 float-container">
                 <img src="images/category/<?php echo $image_name; ?>" alt="<?php echo $title; ?>"
@@ -45,12 +51,12 @@
             </div>
         </a>
         <?php
-                    } else {            
+            } else {
                         // Display message if image is not available
                         echo "<div class='error'>Image not available.</div>";
                     }
                 }
-             } else {
+            } else {
                 echo "<div class='error'>Category not found.</div>";
             }
 
@@ -71,22 +77,22 @@
 
         <?php
             // SQL query to get foods from database
-            $sql = "SELECT * FROM tbl_food WHERE active='Yes' AND featured='Yes' LIMIT 6";
-            $res = mysqli_query($conn, $sql);
+            $sql   = "SELECT * FROM tbl_food WHERE active='Yes' AND featured='Yes' LIMIT 6";
+            $res   = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($res);
 
             // Check if foods are available
-            if($count > 0) {
-                while($row = mysqli_fetch_assoc($res)) {
-                    $id = $row['id'];
-                    $title = $row['title'];
-                    $price = $row['price'];
+            if ($count > 0) {
+                while ($row = mysqli_fetch_assoc($res)) {
+                    $id          = $row['id'];
+                    $title       = $row['title'];
+                    $price       = $row['price'];
                     $description = $row['description'];
-                    $image_name = $row['image_name'];
+                    $image_name  = $row['image_name'];
 
                     // Check if image is available
-                    if($image_name != "") {
-                        ?>
+                    if ($image_name != "") {
+                    ?>
         <div class="food-menu-box">
             <div class="food-menu-img">
                 <img src="images/food/<?php echo $image_name; ?>" alt="<?php echo $title; ?>"
@@ -100,11 +106,11 @@
                 <?php echo $description; ?>
                 </p>
                 <br>
-                <a href="order.html" class="btn btn-primary">Order Now</a>
+                <a href="<?php echo SITEURL; ?>order.php?food_id=<?php echo $id; ?>" class="btn btn-primary">Order Now</a>
             </div>
         </div>
-        <?php   
-                    } else {
+        <?php
+            } else {
                         // Display message if image is not available
                         echo "<div class='error'>Image not available.</div>";
                     }

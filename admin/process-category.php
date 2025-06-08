@@ -3,8 +3,7 @@ session_start();
 include '../config/constants.php';
 
 // Enable error reporting (remove in production)
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+  
 
 if (isset($_POST['submit'])) {
     $title    = mysqli_real_escape_string($conn, $_POST['title']);
@@ -26,7 +25,7 @@ if (isset($_POST['submit'])) {
         $source_path      = $_FILES['image']['tmp_name'];
         $destination_path = "../images/category/" . $image_name;
 
-        // Create folder if it doesn't exist
+        // Create folder if it doesn't exist  
         if (! is_dir("../images/category")) {
             mkdir("../images/category", 0777, true);
         }

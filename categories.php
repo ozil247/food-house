@@ -7,7 +7,7 @@
     <div class="container">
         <h2 class="text-center">Explore Foods</h2>
 
- <?php
+        <?php
             $sql   = "SELECT * FROM tbl_category WHERE active='Yes' AND featured='Yes'";
             $res   = mysqli_query($conn, $sql);
             $count = mysqli_num_rows($res);
@@ -18,7 +18,7 @@
                     $id    = $row['id'];
                     $title = $row['title'];
                     $image_name = $row['image_name'];
- 
+  
                     // Check if image is available
                     if($image_name != "") {
                         // Display the image
