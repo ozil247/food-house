@@ -110,9 +110,9 @@
                             <tr>
                                 <td><?php echo $sn++; ?></td>
                                 <td><?php echo $food; ?></td>
-                                <td><?php echo "$" . number_format($price, 2); ?></td>
+                                <td><?php echo "₦" . number_format($price, 2); ?></td>
                                 <td><?php echo $qty; ?></td>
-                                <td><?php echo "$" . number_format($total, 2); ?></td>
+                                <td><?php echo "₦" . number_format($total, 2); ?></td>
                                 <td><?php echo date("d-m-Y H:i:s", strtotime($order_date)); ?></td>
                                 <td><?php echo $status; ?></td>
                                 <td><?php echo $customer_name; ?></td>
